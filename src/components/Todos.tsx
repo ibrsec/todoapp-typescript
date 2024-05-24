@@ -31,7 +31,7 @@ const Todos: React.FC<IProps> = ({ todos }) => {
       alignSelf={"stretch"}
       gap={1}
     >
-      <Grid item border={2} borderRadius={3} xs={9} md={5}>
+      <Grid item border={2} borderRadius={3} xs={11} md={5}>
         <Typography color={"blue"} align="center">
           Inprogress Todos
         </Typography>
@@ -53,7 +53,7 @@ const Todos: React.FC<IProps> = ({ todos }) => {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "space-between",
-                      paddingRight: "1.5rem",
+                      paddingRight: "1rem",
                       borderRadius: "5px",
                       transiiton: ".5s all",
                       ":hover": {
@@ -73,15 +73,14 @@ const Todos: React.FC<IProps> = ({ todos }) => {
                     >
                       {todo.name}
                     </Box>
-                    <Box>
+                    <Box display={"flex"} alignItems={"center"} justifyContent={"start"} gap={1} flexWrap={"nowrap"}>
                       <BorderColorIcon
                         onClick={()=>handleEdit(todo)}
                         sx={{
                           color: "gray",
                           cursor: "pointer",
                           ":hover": { color: "purple" },
-                          transition: ".5s all",
-                          marginRight: "5px",
+                          transition: ".5s all", 
                         }}
                       />
                       <DeleteIcon
@@ -104,7 +103,7 @@ const Todos: React.FC<IProps> = ({ todos }) => {
           )}
         </List>
       </Grid>
-      <Grid item border={2} borderRadius={3} xs={9} md={5}>
+      <Grid item border={2} borderRadius={3} xs={11} md={5}>
         <Typography color="green" align="center">
           Completed Todos
         </Typography>
@@ -126,7 +125,7 @@ const Todos: React.FC<IProps> = ({ todos }) => {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "space-between",
-                      paddingRight: "1.5rem",
+                      paddingRight: "1rem",
                       borderRadius: "5px",
                       transiiton: ".5s all",
                       ":hover": {
@@ -146,15 +145,14 @@ const Todos: React.FC<IProps> = ({ todos }) => {
                     >
                       {todo.name}
                     </Box>
-                    <Box>
+                    <Box display={"flex"} alignItems={"center"} justifyContent={"start"} gap={1} flexWrap={"nowrap"}>
                     <BorderColorIcon
                         onClick={()=>handleEdit(todo)}
                         sx={{
                           color: "gray",
                           cursor: "pointer",
                           ":hover": { color: "purple" },
-                          transition: ".5s all",
-                          marginRight: "5px",
+                          transition: ".5s all", 
                         }}
                       />
                       <DeleteIcon
