@@ -18,9 +18,8 @@ const Todos: React.FC<IProps> = ({ todos }) => {
 
  
   const handleEdit = async(todo : TodoType) => {
-    const newTaskName = await swalEdit();
-    console.log(newTaskName);
-    putTodo(todo.id, {name:newTaskName, isDone:todo.isDone})
+    const newTaskName = await swalEdit(todo.name);
+    newTaskName && putTodo(todo.id, {name:newTaskName, isDone:todo.isDone})
   };
   return (
     <Grid
