@@ -18,3 +18,21 @@ export const swalError = (msg:string):void => {
         timer: 1500
       });
 }
+export const swalEdit = async() => {
+  const { value: text } = await Swal.fire({
+    title: "Enter a new task name",
+    input: "text",
+    inputLabel: "Enter Task Name",
+    inputPlaceholder: "Enter Here",
+    inputAttributes: {
+      maxlength: "60",
+      autocapitalize: "off",
+      autocorrect: "off"
+    }
+  });
+  if (text) {
+    // console.log(text);
+    return text
+  }
+}
+

@@ -7,13 +7,21 @@ import Grid from "@mui/material/Grid";
 import { TodoType } from "../types";
 import { useTodoContext } from "../context/TodoProvider";
 import { ReactNode } from "react";
-
+import { swalEdit } from "../helper/SwalMessages";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
 type IProps = {
-  todos: TodoType[];  
+  todos: TodoType[];
 };
 
-const Todos: React.FC<IProps> = ({ todos  }) => {
-  const {deleteTodo,putTodo} = useTodoContext();
+const Todos: React.FC<IProps> = ({ todos }) => {
+  const { deleteTodo, putTodo } = useTodoContext();
+
+ 
+  const handleEdit = async(todo : TodoType) => {
+    const newTaskName = await swalEdit();
+    console.log(newTaskName);
+    putTodo(todo.id, {name:newTaskName, isDone:todo.isDone})
+  };
   return (
     <Grid
       container
@@ -28,11 +36,18 @@ const Todos: React.FC<IProps> = ({ todos  }) => {
         <Typography color={"blue"} align="center">
           Inprogress Todos
         </Typography>
-        <List sx={{ paddingRight: "1rem", paddingBottom: "1rem",minHeight:"10rem"  }}>
+        <List
+          sx={{
+            paddingRight: "1rem",
+            paddingBottom: "1rem",
+            minHeight: "10rem",
+          }}
+        >
           {todos.filter((todo) => !todo.isDone).length > 0 ? (
-            todos.filter((todo)=> !todo.isDone)
-            .map(
-              (todo, index): ReactNode =>(
+            todos
+              .filter((todo) => !todo.isDone)
+              .map(
+                (todo, index): ReactNode => (
                   <ListItem
                     key={index}
                     sx={{
@@ -49,12 +64,27 @@ const Todos: React.FC<IProps> = ({ todos  }) => {
                   >
                     <Box
                       flexGrow={1}
-                      onClick={() => putTodo(todo.id,{name:todo.name,isDone:!todo.isDone})}
-                      sx={{ cursor: "pointer",textTransform:"capitalize" }}
+                      onClick={() =>
+                        putTodo(todo.id, {
+                          name: todo.name,
+                          isDone: !todo.isDone,
+                        })
+                      }
+                      sx={{ cursor: "pointer", textTransform: "capitalize" }}
                     >
                       {todo.name}
                     </Box>
                     <Box>
+                      <BorderColorIcon
+                        onClick={()=>handleEdit(todo)}
+                        sx={{
+                          color: "gray",
+                          cursor: "pointer",
+                          ":hover": { color: "purple" },
+                          transition: ".5s all",
+                          marginRight: "5px",
+                        }}
+                      />
                       <DeleteIcon
                         onClick={() => deleteTodo(todo.id)}
                         sx={{
@@ -67,7 +97,7 @@ const Todos: React.FC<IProps> = ({ todos  }) => {
                     </Box>
                   </ListItem>
                 )
-            )
+              )
           ) : (
             <Typography align="center" color={"red"} my={3}>
               There is no inprogress Task
@@ -75,15 +105,22 @@ const Todos: React.FC<IProps> = ({ todos  }) => {
           )}
         </List>
       </Grid>
-      <Grid item border={2} borderRadius={3} xs={9} md={5} >
-        <Typography color="green" align="center"> 
+      <Grid item border={2} borderRadius={3} xs={9} md={5}>
+        <Typography color="green" align="center">
           Completed Todos
         </Typography>
-        <List sx={{ paddingRight: "1rem", paddingBottom: "1rem",minHeight:"10rem" }}>
+        <List
+          sx={{
+            paddingRight: "1rem",
+            paddingBottom: "1rem",
+            minHeight: "10rem",
+          }}
+        >
           {todos.filter((todo) => todo.isDone).length > 0 ? (
-            todos.filter((todo) => todo.isDone)
-            .map(
-              (todo, index) :ReactNode  =>(
+            todos
+              .filter((todo) => todo.isDone)
+              .map(
+                (todo, index): ReactNode => (
                   <ListItem
                     key={index}
                     sx={{
@@ -100,10 +137,27 @@ const Todos: React.FC<IProps> = ({ todos  }) => {
                   >
                     <Box
                       flexGrow={1}
-                      onClick={() => putTodo(todo.id,{name:todo.name,isDone:!todo.isDone})}
-                      sx={{ cursor: "pointer",textTransform:"capitalize" }}
-                    >{todo.name}</Box>
+                      onClick={() =>
+                        putTodo(todo.id, {
+                          name: todo.name,
+                          isDone: !todo.isDone,
+                        })
+                      }
+                      sx={{ cursor: "pointer", textTransform: "capitalize" }}
+                    >
+                      {todo.name}
+                    </Box>
                     <Box>
+                    <BorderColorIcon
+                        onClick={()=>handleEdit(todo)}
+                        sx={{
+                          color: "gray",
+                          cursor: "pointer",
+                          ":hover": { color: "purple" },
+                          transition: ".5s all",
+                          marginRight: "5px",
+                        }}
+                      />
                       <DeleteIcon
                         onClick={() => deleteTodo(todo.id)}
                         sx={{
@@ -116,7 +170,7 @@ const Todos: React.FC<IProps> = ({ todos  }) => {
                     </Box>
                   </ListItem>
                 )
-            )
+              )
           ) : (
             <Typography align="center" color={"red"} my={3}>
               There is no completed Task

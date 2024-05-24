@@ -103,7 +103,7 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
       getTodos();
       setLoading(false);
 
-      swalSuccess(`Task status is changed to ${todoRaw.isDone ? "done" : "inprogress"}`)
+      swalSuccess(`Task is edited!`)
     } catch (error) {
       swalError("Put is failed!!")
       setLoading(false);
