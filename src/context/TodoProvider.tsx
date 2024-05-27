@@ -4,8 +4,7 @@ import React, {
   ReactNode,
   useContext,
   useEffect,
-} from "react";
-import { TodoPostType, TodoType } from "../types";
+} from "react"; 
 import axios from "axios";
 import { swalError, swalSuccess } from "../helper/SwalMessages";
 
@@ -36,12 +35,15 @@ const TodoContext = createContext<TodoContextType>({
 
 // TodoProvider bileşeni, children prop'unu alır
 const TodoProvider = ({ children }: { children: ReactNode }) => {
+  // const [todos, setTodos] = useState(defaultTodos as TodoType[]);
+  // const [todos, setTodos] = useState<Array<TodoType>>(defaultTodos);
   const [todos, setTodos] = useState<TodoType[]>(defaultTodos);
   const [loading, setLoading] = useState<boolean>(false);
   // eslint-disable-next-line
   const [error, setError] = useState<boolean>(false);
-
-  const getTodos = async () => {
+ 
+ 
+  const getTodos : GetTodosFn = async () => {
     setLoading(true);
     try {
       const response = await axios.get(process.env.REACT_APP_BASE_URL!);
@@ -60,7 +62,8 @@ const TodoProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     getTodos();
   }, []);
-  console.log("todos =", todos);
+  console.log("todos =", todos); 
+
 
   const postNewTodo = async (todoRaw: TodoPostType) => {
     setLoading(true);

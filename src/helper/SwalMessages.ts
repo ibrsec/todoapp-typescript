@@ -1,9 +1,12 @@
 import Swal from "sweetalert2";
-
+enum SwalIcons {
+  SUCCESS = "success",
+  ERROR = "error",
+}
 export const swalSuccess = (msg:string):void => {
     Swal.fire({
         position: "top-end",
-        icon: "success",
+        icon: SwalIcons.SUCCESS,
         title: msg,
         showConfirmButton: false,
         timer: 1500
@@ -12,7 +15,7 @@ export const swalSuccess = (msg:string):void => {
 export const swalError = (msg:string):void => {
     Swal.fire({
         position: "top-end",
-        icon: "error",
+        icon: SwalIcons.ERROR,
         title: msg,
         showConfirmButton: false,
         timer: 1500
